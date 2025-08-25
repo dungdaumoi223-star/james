@@ -10,7 +10,6 @@
       background: black;
       overflow: hidden;
       font-family: monospace;
-      color: #00ff00;
     }
 
     canvas {
@@ -22,32 +21,92 @@
       z-index: 0;
     }
 
+    /* Cờ Việt Nam */
+    .flag {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 220px;
+      height: 140px;
+      background: red;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      box-shadow: 0 0 20px red, 0 0 40px red;
+    }
+    .star {
+      position: relative;
+      display: block;
+      color: yellow;
+      width: 0px;
+      height: 0px;
+      border-right:  100px solid transparent;
+      border-bottom: 70px  solid yellow;
+      border-left:   100px solid transparent;
+      transform: rotate(35deg) scale(0.3);
+    }
+    .star:before {
+      border-bottom: 80px solid yellow;
+      border-left: 30px solid transparent;
+      border-right: 30px solid transparent;
+      position: absolute;
+      height: 0;
+      width: 0;
+      top: -45px;
+      left: -65px;
+      display: block;
+      content: '';
+      transform: rotate(-35deg);
+    }
+    .star:after {
+      position: absolute;
+      display: block;
+      color: yellow;
+      top: 3px;
+      left: -105px;
+      width: 0px;
+      height: 0px;
+      border-right: 100px solid transparent;
+      border-bottom: 70px solid yellow;
+      border-left: 100px solid transparent;
+      transform: rotate(-70deg);
+      content: '';
+    }
+
+    /* Text nổi bật */
     .center-text {
       position: absolute;
-      top: 40%;
+      top: 45%;
       width: 100%;
       text-align: center;
-      font-size: 2rem;
-      color: #00ff00;
-      text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+      font-size: 3rem;
+      font-weight: bold;
+      background: linear-gradient(270deg, #ff0000, #ffff00, #00ff00, #00ffff, #ff00ff);
+      background-size: 1000% 1000%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 8s ease infinite, glow 1.5s ease-in-out infinite alternate;
       z-index: 1;
-      animation: glow 2s ease-in-out infinite alternate;
     }
 
     .marquee {
       position: absolute;
-      bottom: 20px;
+      bottom: 30px;
       width: 100%;
-      color: #00ff00;
-      font-size: 1.5rem;
+      color: #fff;
+      font-size: 2rem;
       white-space: nowrap;
       overflow: hidden;
+      text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+      z-index: 1;
     }
 
     .marquee span {
       display: inline-block;
       padding-left: 100%;
-      animation: marquee 15s linear infinite;
+      animation: marquee 20s linear infinite;
     }
 
     @keyframes marquee {
@@ -56,24 +115,37 @@
     }
 
     @keyframes glow {
-      from { text-shadow: 0 0 5px #00ff00; }
-      to { text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00; }
+      from { text-shadow: 0 0 10px #fff, 0 0 20px #ff0; }
+      to { text-shadow: 0 0 30px #0ff, 0 0 60px #f0f; }
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
   </style>
 </head>
 <body>
   <canvas id="matrix"></canvas>
 
-  <div class="center-text">
-    🇻🇳 Ngày 2/9 - Độc Lập - Tự Do - Hạnh Phúc 🇻🇳
+  <!-- Cờ Việt Nam -->
+  <div class="flag">
+    <div class="star"></div>
   </div>
 
+  <!-- Text chính -->
+  <div class="center-text">
+    🇻🇳 NGÀY 2/9 - ĐỘC LẬP - TỰ DO - HẠNH PHÚC 🇻🇳
+  </div>
+
+  <!-- Chữ chạy bên dưới -->
   <div class="marquee">
-    <span>✨ Vinh quang dân tộc - Tinh thần bất diệt - Việt Nam muôn năm ✨</span>
+    <span>✨ VINH QUANG DÂN TỘC - TINH THẦN BẤT DIỆT - VIỆT NAM MUÔN NĂM ✨</span>
   </div>
 
   <script>
-    // Matrix Effect
+    // Hiệu ứng Matrix
     const canvas = document.getElementById("matrix");
     const ctx = canvas.getContext("2d");
 
