@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Ngày 2/9 - Việt Nam</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: black;
+      overflow: hidden;
+      font-family: monospace;
+      color: #00ff00;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .center-text {
+      position: absolute;
+      top: 40%;
+      width: 100%;
+      text-align: center;
+      font-size: 2rem;
+      color: #00ff00;
+      text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+      z-index: 1;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    .marquee {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      color: #00ff00;
+      font-size: 1.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .marquee span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 15s linear infinite;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0%); }
+      to { transform: translateX(-100%); }
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #00ff00; }
+      to { text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="matrix"></canvas>
+
+  <div class="center-text">
+    🇻🇳 Ngày 2/9 - Độc Lập - Tự Do - Hạnh Phúc 🇻🇳
+  </div>
+
+  <div class="marquee">
+    <span>✨ Vinh quang dân tộc - Tinh thần bất diệt - Việt Nam muôn năm ✨</span>
+  </div>
+
+  <script>
+    // Matrix Effect
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const letters = "アァイィウヴエェオカガキギクグケゲコゴサザシジスセゼソゾタダチッヂヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモヤユヨラリルレロワンabcdefghijklmnopqrstuvwxyz0123456789";
+    const matrix = letters.split("");
+
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = [];
+
+    for (let x = 0; x < columns; x++) drops[x] = 1;
+
+    function draw() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#0F0";
+      ctx.font = fontSize + "px monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = matrix[Math.floor(Math.random() * matrix.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 33);
+
+    // Responsive
+    window.addEventListener("resize", () => {
+      canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
+    });
+  </script>
+</body>
+</html>
