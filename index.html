@@ -91,6 +91,7 @@
       z-index: 1;
     }
 
+    /* Chữ chạy dưới */
     .marquee {
       position: absolute;
       bottom: 30px;
@@ -109,6 +110,19 @@
       animation: marquee 20s linear infinite;
     }
 
+    /* Intro text */
+    .intro {
+      position: absolute;
+      top: 20%;
+      width: 100%;
+      text-align: center;
+      font-size: 2.5rem;
+      color: #ff0;
+      text-shadow: 0 0 15px #ff0, 0 0 30px #f00, 0 0 45px #0ff;
+      z-index: 3;
+      animation: fadeOut 3s forwards;
+    }
+
     @keyframes marquee {
       from { transform: translateX(0%); }
       to { transform: translateX(-100%); }
@@ -124,10 +138,19 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; display: none; }
+    }
   </style>
 </head>
 <body>
   <canvas id="matrix"></canvas>
+
+  <!-- Intro text -->
+  <div class="intro">✨ Design by James_Liam ✨</div>
 
   <!-- Cờ Việt Nam -->
   <div class="flag">
